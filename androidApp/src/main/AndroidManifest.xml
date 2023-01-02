@@ -8,6 +8,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".OrdersActivity"
+            android:exported="false" />
+        <activity
+            android:name=".OffersActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HistoryActivity"
+            android:exported="false" />
+        <activity
             android:name=".HomeActivity"
             android:exported="false"
             android:theme="@style/HomeTheme" />
