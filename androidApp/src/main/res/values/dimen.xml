@@ -4,4 +4,9 @@
     <dimen name="activity_half_margin">8dp</dimen>
     <dimen name="indicator_size">8dp</dimen>
     <dimen name="section_image_item">128dp</dimen>
+    <dimen name="cbn_fab_size">56dp</dimen>
+    <dimen name="cbn_height">56dp</dimen>
+    <dimen name="cbn_layout_height">84dp</dimen>
+    <dimen name="cbn_bottom_curve_offset">12dp</dimen>
+    <dimen name="cbn_fab_top_offset">8dp</dimen>
 </resources>

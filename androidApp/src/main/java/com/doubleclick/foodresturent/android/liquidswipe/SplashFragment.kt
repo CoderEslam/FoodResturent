@@ -1,6 +1,7 @@
 package com.doubleclick.foodresturent.android.liquidswipe
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.doubleclick.foodresturent.android.Auth.AuthActivity
 import com.doubleclick.foodresturent.android.R
 import com.doubleclick.foodresturent.android.databinding.FragmentSplashBinding
 
@@ -46,10 +48,8 @@ class SplashFragment : Fragment() {
             binding.dots.setImageDrawable(resources.getDrawable(dotes!!))
             binding.lottieAnimationView.setAnimation(lotteAnimation!!)
             binding.title.text = title
-            if (position == 3) {
-                binding.title.setOnClickListener {
-                    Toast.makeText(requireActivity(), "Clicked", Toast.LENGTH_SHORT).show()
-                }
+            binding.title.setOnClickListener {
+                startActivity(Intent(requireActivity(), AuthActivity::class.java))
             }
         }
     }

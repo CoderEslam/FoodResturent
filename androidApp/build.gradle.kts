@@ -1,6 +1,10 @@
 plugins {
     id("com.android.application")
     kotlin("android")
+    id("androidx.navigation.safeargs.kotlin")
+    id("com.google.gms.google-services")
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
+    id("kotlin-android-extensions")
 }
 
 android {
@@ -12,6 +16,9 @@ android {
         targetSdk = 32
         versionCode = 1
         versionName = "1.0"
+//        multiDexEnabled = true
+        vectorDrawables.useSupportLibrary = true
+
     }
     buildFeatures {
         compose = true
@@ -48,4 +55,14 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("com.airbnb.android:lottie:3.4.0")
     implementation("androidx.cardview:cardview:1.0.0")
+    implementation("com.google.android.material:material:1.4.0")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.5.3")
+    implementation("androidx.navigation:navigation-ui-ktx:2.5.3")
+    implementation("de.hdodenhof:circleimageview:3.1.0")
+    implementation("com.google.firebase:firebase-auth-ktx:21.1.0")
+    implementation("com.google.firebase:firebase-messaging-ktx:23.1.0")
+    implementation("com.google.firebase:firebase-auth-ktx:21.1.0")
+    implementation("com.google.android.gms:play-services-maps:18.1.0")
+//    implementation("com.android.support:multidex:2.0.1")
+
 }
