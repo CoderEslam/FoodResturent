@@ -48,8 +48,13 @@ class SplashFragment : Fragment() {
             binding.dots.setImageDrawable(resources.getDrawable(dotes!!))
             binding.lottieAnimationView.setAnimation(lotteAnimation!!)
             binding.title.text = title
-            binding.title.setOnClickListener {
-                startActivity(Intent(requireActivity(), AuthActivity::class.java))
+            if (position == 3) {
+                binding.llStart.visibility = View.VISIBLE
+                binding.startBtn.setOnClickListener {
+                    startActivity(Intent(requireActivity(), AuthActivity::class.java))
+                }
+            } else {
+                binding.llStart.visibility = View.GONE
             }
         }
     }

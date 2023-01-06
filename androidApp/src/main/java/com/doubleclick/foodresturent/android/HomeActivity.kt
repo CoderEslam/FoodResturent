@@ -20,21 +20,32 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
     private lateinit var networkBinding: NoInternetConnectionBinding
 
+    @RequiresApi(Build.VERSION_CODES.M)
+    private var net: Boolean = false
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (isNetworkConnected(this)) {
+        supportActionBar?.hide()
+        net = isNetworkConnected(this)
+        if (net) {
             binding = ActivityHomeBinding.inflate(layoutInflater)
             setContentView(binding.root)
+            buttonNavigation(savedInstanceState);
         } else {
             networkBinding = NoInternetConnectionBinding.inflate(layoutInflater)
             setContentView(networkBinding.root)
+            networkBinding.tryAgain.setOnClickListener {
+                //https://stackoverflow.com/questions/3053761/reload-activity-in-android
+                finish()
+                startActivity(intent)
+            }
         }
 
+    }
 
+    private fun buttonNavigation(savedInstanceState: Bundle?) {
         val activeIndex = savedInstanceState?.getInt("activeIndex") ?: 2
-
         val navController = findNavController(R.id.nav_home_fragment)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -79,7 +90,14 @@ class HomeActivity : AppCompatActivity() {
 
         binding.navView.setMenuItems(menuItems, activeIndex)
         binding.navView.setupWithNavController(navController)
+
     }
 
-
+    @RequiresApi(Build.VERSION_CODES.M)
+    override fun onSaveInstanceState(outState: Bundle) {
+        if (net) {
+            outState.putInt("activeIndex", binding.navView.getSelectedIndex())
+        }
+        super.onSaveInstanceState(outState)
+    }
 }

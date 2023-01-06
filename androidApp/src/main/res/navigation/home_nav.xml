@@ -20,7 +20,7 @@
 
     <fragment
         android:id="@+id/navigation_cart"
-        android:name="com.doubleclick.foodresturent.android.Home.ui.NotificationsFragment"
+        android:name="com.doubleclick.foodresturent.android.Home.ui.CartFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_cart" />
     <fragment
