@@ -14,7 +14,7 @@
 
     <fragment
         android:id="@+id/navigation_location"
-        android:name="com.doubleclick.foodresturent.android.Home.ui.DashboardFragment"
+        android:name="com.doubleclick.foodresturent.android.Home.ui.LocationFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_location" />
 
@@ -25,7 +25,7 @@
         tools:layout="@layout/fragment_cart" />
     <fragment
         android:id="@+id/navigation_favorite"
-        android:name="com.doubleclick.foodresturent.android.Home.ui.SettingsFragment"
+        android:name="com.doubleclick.foodresturent.android.Home.ui.FavoriteFragment"
         android:label="@string/title_settings"
         tools:layout="@layout/fragment_favorite" />
     <fragment

@@ -63,6 +63,8 @@ dependencies {
     implementation("com.google.firebase:firebase-messaging-ktx:23.1.0")
     implementation("com.google.firebase:firebase-auth-ktx:21.1.0")
     implementation("com.google.android.gms:play-services-maps:18.1.0")
+    implementation("com.squareup.picasso:picasso:2.8")
+
 //    implementation("com.android.support:multidex:2.0.1")
 
 }

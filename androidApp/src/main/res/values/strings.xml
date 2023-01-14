@@ -42,5 +42,6 @@
     <string name="email">email</string>
     <string name="password">password</string>
     <string name="name">name</string>
+    <string name="search">search</string>
     <!--    -->
 </resources>

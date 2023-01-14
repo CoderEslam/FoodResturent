@@ -66,8 +66,8 @@ class HomeActivity : AppCompatActivity() {
                 R.id.navigation_favorite
             ),
             CbnMenuItem(
-                R.drawable.location,
-                R.drawable.location,
+                R.drawable.ic_map_fill,
+                R.drawable.ic_map_fill,
                 R.id.navigation_location
             ),
             CbnMenuItem(
