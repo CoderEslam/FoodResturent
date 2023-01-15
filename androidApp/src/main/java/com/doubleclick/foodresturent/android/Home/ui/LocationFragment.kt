@@ -13,10 +13,13 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.SavedStateViewModelFactory
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.doubleclick.foodresturent.android.Adapter.AddressAdapter
 import com.doubleclick.foodresturent.android.Adapter.InfoWindowAdapter
 import com.doubleclick.foodresturent.android.R
+import com.doubleclick.foodresturent.android.ViewModel.SaveStateViewModel
 import com.doubleclick.foodresturent.android.databinding.FragmentLocationBinding
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
@@ -46,6 +49,8 @@ class LocationFragment : Fragment(), OnMapReadyCallback {
     private var currentMarker: Marker? = null
     private var infoWindowAdapter: InfoWindowAdapter? = null
     private var typeMap: Boolean = false
+    lateinit var viewModel: SaveStateViewModel;
+
 
     private val TAG = "LocationFragment"
     override fun onCreateView(
@@ -59,6 +64,12 @@ class LocationFragment : Fragment(), OnMapReadyCallback {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel =
+            ViewModelProvider(
+                this,
+                SavedStateViewModelFactory(requireActivity().application, this)
+            )[SaveStateViewModel::class.java]
 
         binding.rvPreviousSearch.apply {
             adapter = AddressAdapter()
@@ -173,6 +184,11 @@ class LocationFragment : Fragment(), OnMapReadyCallback {
 
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        if (::viewModel.isInitialized)
+            viewModel.saveState()
+        super.onSaveInstanceState(outState)
+    }
     //https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=47.8069962,-103.6187714&radius=5000&type=Egypt&key=AIzaSyCsNE4JNKvA6uR-TBaNXuw6NKkDv-JiAYQ
 
     /*
