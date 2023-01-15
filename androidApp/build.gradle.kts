@@ -65,6 +65,12 @@ dependencies {
     implementation("com.google.android.gms:play-services-maps:18.1.0")
     implementation("com.squareup.picasso:picasso:2.8")
 
+    // google map dependencies
+    implementation("com.google.android.libraries.places:places:3.0.0")
+    implementation("com.google.maps.android:android-maps-utils:2.2.0")
+    implementation("com.google.maps:google-maps-services:0.2.9")
+    implementation ("com.karumi:dexter:6.2.3")
+
 //    implementation("com.android.support:multidex:2.0.1")
 
 }
