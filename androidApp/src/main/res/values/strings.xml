@@ -24,11 +24,7 @@
     <string name="title_profile">Profile</string>
     <string name="title_settings">Settings</string>
 
-    <string name="content_home">This is the Home Screen</string>
-    <string name="content_dashboard">This is the DashBoard Screen</string>
-    <string name="content_notification">This is the Notification Screen</string>
-    <string name="content_profile">This is the Profile Screen</string>
-    <string name="content_settings">This is the Settings Screen</string>
+
     <string name="you_forget_password">You forget \n password!</string>
     <string name="send">Send</string>
     <string name="edit">Edit</string>
