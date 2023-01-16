@@ -19,7 +19,8 @@ import com.doubleclick.foodresturent.android.views.swipetoactionlayout.SwipeToAc
  */
 private const val TAG = "CartAdapter"
 
-typealias OnActionClicked = (contact: Cart, action: SwipeAction) -> Unit
+//lambda function
+typealias OnActionClicked = (contact: Cart, action: SwipeAction, pos: Int) -> Unit
 typealias Block = (input: Int) -> Unit
 
 class CartAdapter(
@@ -73,9 +74,14 @@ class CartAdapter(
         }
 
         override fun onClosed(view: View) {
-            val position = adapterPosition
-            val cart = carts[position]
-            actionsBindHelper.closeOtherThan(cart.name)
+            try {
+                val position = adapterPosition
+                val cart = carts[position]
+                actionsBindHelper.closeOtherThan(cart.name)
+            } catch (e: IndexOutOfBoundsException) {
+                Log.e(TAG, "onClosed: ${e.message}")
+            }
+
         }
 
         override fun onOpened(view: View) {
@@ -88,7 +94,7 @@ class CartAdapter(
 
         override fun onActionClicked(view: View, action: SwipeAction) {
             val position = adapterPosition
-            actionClicked(carts[position], action)
+            actionClicked(carts[position], action, position)
             swipeToActionLayout.close()
         }
     }

@@ -18,6 +18,8 @@ class CartFragment : Fragment() {
     private lateinit var binding: FragmentCartBinding
 
     private var count: Int = 0
+    lateinit var cart: MutableList<Cart>
+    lateinit var cartAdapter: CartAdapter
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -29,39 +31,42 @@ class CartFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.rvCart.adapter = CartAdapter(
-            mutableListOf(
-                Cart(1, "name"),
-                Cart(1, "name"),
-                Cart(1, "name"),
-                Cart(1, "name"),
-                Cart(1, "name"),
-                Cart(1, "name"),
-                Cart(1, "name"),
-                Cart(1, "name"),
-                Cart(1, "name"),
-                Cart(1, "name"),
-                Cart(1, "name"),
-                Cart(1, "name"),
-                Cart(1, "name"),
-                Cart(1, "name"),
-                Cart(1, "name"),
-                Cart(1, "name"),
-                Cart(1, "name"),
-                Cart(1, "name"),
-                Cart(1, "name"),
-                Cart(1, "name"),
-                Cart(1, "name"),
-                Cart(1, "name"),
-            ), ::Counter,
-            ::OnActionClicked
+        cart = mutableListOf(
+            Cart(1, "name"),
+            Cart(1, "name"),
+            Cart(1, "name"),
+            Cart(1, "name"),
+            Cart(1, "name"),
+            Cart(1, "name"),
+            Cart(1, "name"),
+            Cart(1, "name"),
+            Cart(1, "name"),
+            Cart(1, "name"),
+            Cart(1, "name"),
+            Cart(1, "name"),
+            Cart(1, "name"),
+            Cart(1, "name"),
+            Cart(1, "name"),
+            Cart(1, "name"),
+            Cart(1, "name"),
+            Cart(1, "name"),
+            Cart(1, "name"),
+            Cart(1, "name"),
+            Cart(1, "name"),
+            Cart(1, "name"),
         )
+        cartAdapter = CartAdapter(cart, ::Counter, ::OnActionClicked)
+        binding.rvCart.adapter = cartAdapter
     }
 
-    private fun OnActionClicked(contact: Cart, action: SwipeAction) {
+    private fun OnActionClicked(contact: Cart, action: SwipeAction, pos: Int) {
         when (action.actionId) {
-            R.id.delete -> Toast.makeText(requireActivity(), "deleted", Toast.LENGTH_LONG)
-                .show()
+            R.id.delete -> {
+                Toast.makeText(requireActivity(), "deleted", Toast.LENGTH_LONG)
+                    .show()
+                cart.removeAt(pos);
+                cartAdapter.notifyItemRemoved(pos)
+            }
         }
     }
 
