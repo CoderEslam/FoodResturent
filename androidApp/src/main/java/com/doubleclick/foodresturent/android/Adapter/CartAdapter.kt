@@ -18,11 +18,13 @@ import com.doubleclick.foodresturent.android.views.swipetoactionlayout.SwipeToAc
  * Created By Eslam Ghazy on 1/3/2023
  */
 private const val TAG = "CartAdapter"
+
 typealias OnActionClicked = (contact: Cart, action: SwipeAction) -> Unit
+typealias Block = (input: Int) -> Unit
 
 class CartAdapter(
     private val carts: MutableList<Cart>,
-    private val block: (input: Int) -> Unit,
+    private val block: Block,
     private val actionClicked: OnActionClicked
 ) :
     RecyclerView.Adapter<CartAdapter.CartViewHolder>() {

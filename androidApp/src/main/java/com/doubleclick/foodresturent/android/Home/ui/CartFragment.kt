@@ -11,6 +11,7 @@ import com.doubleclick.foodresturent.android.Adapter.CartAdapter
 import com.doubleclick.foodresturent.android.R
 import com.doubleclick.foodresturent.android.databinding.FragmentCartBinding
 import com.doubleclick.foodresturent.android.model.Cart
+import com.doubleclick.foodresturent.android.views.swipetoactionlayout.SwipeAction
 
 class CartFragment : Fragment() {
 
@@ -52,16 +53,19 @@ class CartFragment : Fragment() {
                 Cart(1, "name"),
                 Cart(1, "name"),
                 Cart(1, "name"),
-            ), ::Counter
-        ) { _, action ->
-            when (action.actionId) {
-                R.id.delete -> Toast.makeText(requireActivity(), "deleted", Toast.LENGTH_LONG)
-                    .show()
-            }
+            ), ::Counter,
+            ::OnActionClicked
+        )
+    }
+
+    private fun OnActionClicked(contact: Cart, action: SwipeAction) {
+        when (action.actionId) {
+            R.id.delete -> Toast.makeText(requireActivity(), "deleted", Toast.LENGTH_LONG)
+                .show()
         }
     }
 
-    fun Counter(input: Int) {
+    private fun Counter(input: Int) {
         Log.e("TAG", "Counter: $input")
     }
 

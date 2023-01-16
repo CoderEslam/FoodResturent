@@ -65,11 +65,7 @@ class LocationFragment : Fragment(), OnMapReadyCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel =
-            ViewModelProvider(
-                this,
-                SavedStateViewModelFactory(requireActivity().application, this)
-            )[SaveStateViewModel::class.java]
+        viewModel = ViewModelProvider(this)[SaveStateViewModel::class.java]
 
         binding.rvPreviousSearch.apply {
             adapter = AddressAdapter()
@@ -80,12 +76,14 @@ class LocationFragment : Fragment(), OnMapReadyCallback {
         }
 
         binding.btnMapType.setOnClickListener {
-            if (typeMap) {
+            if (viewModel.getType()!!) {
                 mGoogleMap.mapType = GoogleMap.MAP_TYPE_NORMAL
-                typeMap = false
+                viewModel.setType(false)
+//                typeMap = false
             } else {
                 mGoogleMap.mapType = GoogleMap.MAP_TYPE_SATELLITE
-                typeMap = true
+                viewModel.setType(true)
+//                typeMap = true
             }
         }
 
@@ -184,11 +182,6 @@ class LocationFragment : Fragment(), OnMapReadyCallback {
 
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        if (::viewModel.isInitialized)
-            viewModel.saveState()
-        super.onSaveInstanceState(outState)
-    }
     //https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=47.8069962,-103.6187714&radius=5000&type=Egypt&key=AIzaSyCsNE4JNKvA6uR-TBaNXuw6NKkDv-JiAYQ
 
     /*
