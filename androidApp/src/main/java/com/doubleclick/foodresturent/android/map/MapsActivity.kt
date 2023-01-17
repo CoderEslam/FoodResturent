@@ -47,7 +47,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private var currentMarker: Marker? = null
     private var infoWindowAdapter: InfoWindowAdapter? = null
     private lateinit var binding: ActivityMapsBinding
-    private var typeMap: Boolean = false
+    private var typeMap: Boolean = true
     private val TAG = "MapsActivity"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -163,7 +163,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        typeMap = savedInstanceState.getBoolean("typeMap", false);
+        typeMap = savedInstanceState.getBoolean("typeMap", true);
         Log.e(TAG, "onRestoreInstanceState: $typeMap")
         super.onRestoreInstanceState(savedInstanceState)
     }

@@ -43,7 +43,7 @@ class LocationFragment : Fragment(), OnMapReadyCallback {
     private lateinit var currentLocation: Location
     private var currentMarker: Marker? = null
     private var infoWindowAdapter: InfoWindowAdapter? = null
-    private var typeMap: Boolean = false
+    private var typeMap: Boolean = true
 
 
     private val TAG = "LocationFragment"
@@ -58,9 +58,6 @@ class LocationFragment : Fragment(), OnMapReadyCallback {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        typeMap = savedInstanceState?.getBoolean("type-map", false) ?: false;
-
         binding.rvPreviousSearch.apply {
             adapter = AddressAdapter()
         }
@@ -70,13 +67,7 @@ class LocationFragment : Fragment(), OnMapReadyCallback {
         }
 
         binding.btnMapType.setOnClickListener {
-            if (typeMap) {
-                mGoogleMap.mapType = GoogleMap.MAP_TYPE_NORMAL
-                typeMap = false
-            } else {
-                mGoogleMap.mapType = GoogleMap.MAP_TYPE_SATELLITE
-                typeMap = true
-            }
+            changeMapType()
         }
 
         val mapFragment = childFragmentManager
@@ -113,8 +104,19 @@ class LocationFragment : Fragment(), OnMapReadyCallback {
         })
     }
 
+    private fun changeMapType() {
+        if (typeMap) {
+            mGoogleMap.mapType = GoogleMap.MAP_TYPE_NORMAL
+            typeMap = false
+        } else {
+            mGoogleMap.mapType = GoogleMap.MAP_TYPE_SATELLITE
+            typeMap = true
+        }
+    }
+
     override fun onMapReady(googleMap: GoogleMap) {
         mGoogleMap = googleMap;
+        changeMapType();
         mGoogleMap.setOnMapClickListener {
             // When clicked on map
             // Initialize marker options
@@ -176,7 +178,12 @@ class LocationFragment : Fragment(), OnMapReadyCallback {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putBoolean("type-map", typeMap);
+        outState.putBoolean("type-map", !typeMap);
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        typeMap = savedInstanceState?.getBoolean("type-map", true) ?: true;
     }
     //https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=47.8069962,-103.6187714&radius=5000&type=Egypt&key=AIzaSyCsNE4JNKvA6uR-TBaNXuw6NKkDv-JiAYQ
 
