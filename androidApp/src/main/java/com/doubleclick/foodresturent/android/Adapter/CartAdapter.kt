@@ -35,7 +35,11 @@ class CartAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartViewHolder {
         return CartViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_swipe_to_action, parent, false)
+                .inflate(
+                    R.layout.item_swipe_to_action,
+                    parent,
+                    false
+                )
         )
     }
 
@@ -75,13 +79,11 @@ class CartAdapter(
 
         override fun onClosed(view: View) {
             try {
-                val position = adapterPosition
-                val cart = carts[position]
+                val cart = carts[adapterPosition]
                 actionsBindHelper.closeOtherThan(cart.name)
             } catch (e: IndexOutOfBoundsException) {
                 Log.e(TAG, "onClosed: ${e.message}")
             }
-
         }
 
         override fun onOpened(view: View) {
@@ -93,8 +95,7 @@ class CartAdapter(
         }
 
         override fun onActionClicked(view: View, action: SwipeAction) {
-            val position = adapterPosition
-            actionClicked(carts[position], action, position)
+            actionClicked(carts[adapterPosition], action, adapterPosition)
             swipeToActionLayout.close()
         }
     }
