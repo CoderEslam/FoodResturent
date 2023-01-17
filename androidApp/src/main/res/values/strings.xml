@@ -39,5 +39,6 @@
     <string name="password">password</string>
     <string name="name">name</string>
     <string name="search">search</string>
+    <string name="complete_order">Complete Order</string>
     <!--    -->
 </resources>

@@ -13,13 +13,10 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.SavedStateViewModelFactory
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import com.doubleclick.foodresturent.android.Adapter.AddressAdapter
 import com.doubleclick.foodresturent.android.Adapter.InfoWindowAdapter
 import com.doubleclick.foodresturent.android.R
-import com.doubleclick.foodresturent.android.ViewModel.SaveStateViewModel
 import com.doubleclick.foodresturent.android.databinding.FragmentLocationBinding
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
@@ -33,13 +30,11 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import java.io.IOException
 
 class LocationFragment : Fragment(), OnMapReadyCallback {
 
-    lateinit var binding: FragmentLocationBinding
+    private lateinit var binding: FragmentLocationBinding
     private lateinit var mGoogleMap: GoogleMap
     private var isLocationPermissionOk = false
     private lateinit var locationRequest: LocationRequest
@@ -49,7 +44,6 @@ class LocationFragment : Fragment(), OnMapReadyCallback {
     private var currentMarker: Marker? = null
     private var infoWindowAdapter: InfoWindowAdapter? = null
     private var typeMap: Boolean = false
-    lateinit var viewModel: SaveStateViewModel;
 
 
     private val TAG = "LocationFragment"
@@ -65,7 +59,7 @@ class LocationFragment : Fragment(), OnMapReadyCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(this)[SaveStateViewModel::class.java]
+        typeMap = savedInstanceState?.getBoolean("type-map", false) ?: false;
 
         binding.rvPreviousSearch.apply {
             adapter = AddressAdapter()
@@ -76,14 +70,12 @@ class LocationFragment : Fragment(), OnMapReadyCallback {
         }
 
         binding.btnMapType.setOnClickListener {
-            if (viewModel.getType()!!) {
+            if (typeMap) {
                 mGoogleMap.mapType = GoogleMap.MAP_TYPE_NORMAL
-                viewModel.setType(false)
-//                typeMap = false
+                typeMap = false
             } else {
                 mGoogleMap.mapType = GoogleMap.MAP_TYPE_SATELLITE
-                viewModel.setType(true)
-//                typeMap = true
+                typeMap = true
             }
         }
 
@@ -182,6 +174,10 @@ class LocationFragment : Fragment(), OnMapReadyCallback {
 
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putBoolean("type-map", typeMap);
+    }
     //https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=47.8069962,-103.6187714&radius=5000&type=Egypt&key=AIzaSyCsNE4JNKvA6uR-TBaNXuw6NKkDv-JiAYQ
 
     /*

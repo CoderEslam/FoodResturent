@@ -76,13 +76,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="60dp"
         android:src="@drawable/ic_my_location"
         app:backgroundTint="@color/white"
         app:fabCustomSize="50dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnMapType"
         app:tint="@color/red" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -90,13 +90,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="16dp"
         android:src="@drawable/ic_map_type"
         app:backgroundTint="@color/white"
         app:fabCustomSize="40dp"
-        app:layout_constraintBottom_toTopOf="@+id/currentLocation"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rv_previous_search"
         app:tint="@color/red" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

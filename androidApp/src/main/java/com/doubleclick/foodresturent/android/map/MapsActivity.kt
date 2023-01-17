@@ -5,6 +5,8 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
+import android.os.PersistableBundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.doubleclick.foodresturent.android.Adapter.InfoWindowAdapter
@@ -46,13 +48,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private var infoWindowAdapter: InfoWindowAdapter? = null
     private lateinit var binding: ActivityMapsBinding
     private var typeMap: Boolean = false
-
+    private val TAG = "MapsActivity"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
@@ -82,13 +82,17 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
 
         binding.btnMapType.setOnClickListener {
-            if (typeMap) {
-                mGoogleMap.mapType = GoogleMap.MAP_TYPE_NORMAL
-                typeMap = false
-            } else {
-                mGoogleMap.mapType = GoogleMap.MAP_TYPE_SATELLITE
-                typeMap = true
-            }
+            changeMapType();
+        }
+    }
+
+    private fun changeMapType() {
+        if (typeMap) {
+            mGoogleMap.mapType = GoogleMap.MAP_TYPE_NORMAL
+            typeMap = false
+        } else {
+            mGoogleMap.mapType = GoogleMap.MAP_TYPE_SATELLITE
+            typeMap = true
         }
     }
 
@@ -149,8 +153,20 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
      */
     override fun onMapReady(googleMap: GoogleMap) {
         mGoogleMap = googleMap
+        changeMapType();
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putBoolean("typeMap", !typeMap);
+        Log.e(TAG, "onSaveInstanceState: $typeMap")
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        typeMap = savedInstanceState.getBoolean("typeMap", false);
+        Log.e(TAG, "onRestoreInstanceState: $typeMap")
+        super.onRestoreInstanceState(savedInstanceState)
+    }
 /*
     private fun isLocationPermissioned() {
         if (ActivityCompat.checkSelfPermission(
