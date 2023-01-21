@@ -10,6 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.doubleclick.foodresturent.android.Auth.AuthActivity
+import com.doubleclick.foodresturent.android.HomeActivity
 import com.doubleclick.foodresturent.android.R
 import com.doubleclick.foodresturent.android.databinding.FragmentSplashBinding
 
@@ -48,6 +49,11 @@ class SplashFragment : Fragment() {
             binding.dots.setImageDrawable(resources.getDrawable(dotes!!))
             binding.lottieAnimationView.setAnimation(lotteAnimation!!)
             binding.title.text = title
+            /////////////////////////////////////////////////////////
+            binding.title.setOnClickListener {
+                startActivity(Intent(requireContext(), HomeActivity::class.java));
+            }
+            /////////////////////////////////////////////////////////
             if (position == 3) {
                 binding.llStart.visibility = View.VISIBLE
                 binding.startBtn.setOnClickListener {

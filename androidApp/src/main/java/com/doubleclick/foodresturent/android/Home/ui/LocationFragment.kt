@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
@@ -151,11 +152,19 @@ class LocationFragment : Fragment(), OnMapReadyCallback {
         }
         fusedLocationProviderClient.lastLocation
             .addOnSuccessListener { location ->
-                currentLocation = location
-                infoWindowAdapter = null
-                infoWindowAdapter = InfoWindowAdapter(currentLocation, requireContext())
-                mGoogleMap.setInfoWindowAdapter(infoWindowAdapter)
-                moveCameraToLocation(location)
+                try {
+                    currentLocation = location
+                    infoWindowAdapter = null
+                    infoWindowAdapter = InfoWindowAdapter(currentLocation, requireActivity())
+                    mGoogleMap.setInfoWindowAdapter(infoWindowAdapter)
+                    moveCameraToLocation(location)
+                } catch (e: NullPointerException) {
+                    Toast.makeText(
+                        requireActivity(),
+                        resources.getString(R.string.open_your_location),
+                        Toast.LENGTH_LONG
+                    ).show();
+                }
             }
     }
 

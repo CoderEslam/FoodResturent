@@ -7,6 +7,7 @@ import android.location.Location
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.doubleclick.foodresturent.android.Adapter.InfoWindowAdapter
@@ -30,10 +31,7 @@ import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -111,16 +109,25 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             isLocationPermissionOk = false
             return
         }
-        fusedLocationProviderClient.lastLocation
-            .addOnSuccessListener { location ->
+        fusedLocationProviderClient.lastLocation.addOnSuccessListener { location ->
+            try {
                 currentLocation = location
                 infoWindowAdapter = null
                 infoWindowAdapter = InfoWindowAdapter(currentLocation, this@MapsActivity)
                 mGoogleMap.setInfoWindowAdapter(infoWindowAdapter)
                 moveCameraToLocation(location)
+            } catch (e: NullPointerException) {
+                Toast.makeText(
+                    this,
+                    resources.getString(R.string.open_your_location),
+                    Toast.LENGTH_LONG
+                ).show();
+
             }
+        }
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     private fun moveCameraToLocation(location: Location) {
         val cameraUpdate =
             CameraUpdateFactory.newLatLngZoom(LatLng(location.latitude, location.longitude), 17f)
@@ -167,22 +174,4 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         Log.e(TAG, "onRestoreInstanceState: $typeMap")
         super.onRestoreInstanceState(savedInstanceState)
     }
-/*
-    private fun isLocationPermissioned() {
-        if (ActivityCompat.checkSelfPermission(
-                this@MapsActivity,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-            && ActivityCompat.checkSelfPermission(
-                this@MapsActivity,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            isLocationPermissionOk = false
-            return
-        } else {
-            startActivity(Intent(this@MapsActivity, HomeActivity::class.java));
-        }
-    }
-*/
 }

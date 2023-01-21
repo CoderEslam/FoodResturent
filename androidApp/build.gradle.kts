@@ -72,7 +72,15 @@ dependencies {
     implementation("com.karumi:dexter:6.2.3")
 
     implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:1.0.0-rc03")
-
+    //data-store
+    implementation("androidx.datastore:datastore-preferences:1.0.0-rc02")
+    implementation("com.github.bumptech.glide:glide:4.14.2")
+    implementation("androidx.datastore:datastore-core:1.0.0")
+    //Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.retrofit2:converter-scalars:2.9.0")
+    implementation("io.reactivex.rxjava2:rxandroid:2.0.1")
 
 //    implementation("com.android.support:multidex:2.0.1")
 

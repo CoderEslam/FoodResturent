@@ -100,4 +100,8 @@ class HomeActivity : AppCompatActivity() {
         }
         super.onSaveInstanceState(outState)
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+    }
 }
