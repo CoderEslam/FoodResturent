@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide.init
+import com.doubleclick.foodresturent.android.Adapter.ItemCategory
 import com.doubleclick.foodresturent.android.HomeActivity
 import com.doubleclick.foodresturent.android.R
 import com.doubleclick.foodresturent.android.databinding.FragmentHomeBinding
@@ -33,6 +34,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.itemRv.adapter = ItemCategory();
         binding.imageSlider.setImageList(
             listOf(
                 SlideModel(
