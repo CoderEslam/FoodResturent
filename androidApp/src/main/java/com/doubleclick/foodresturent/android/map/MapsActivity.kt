@@ -37,10 +37,6 @@ import kotlinx.coroutines.*
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mGoogleMap: GoogleMap
-    private var isLocationPermissionOk = false
-    private lateinit var locationRequest: LocationRequest
-    private lateinit var locationCallback: LocationCallback
-    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private lateinit var currentLocation: Location
     private var currentMarker: Marker? = null
     private var infoWindowAdapter: InfoWindowAdapter? = null
@@ -106,11 +102,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            isLocationPermissionOk = false
             return
         }
         fusedLocationProviderClient.lastLocation.addOnSuccessListener { location ->
             try {
+                binding.enable.isEnabled = false
+                binding.enable.setTextColor(resources.getColor(R.color.grey_600))
                 currentLocation = location
                 infoWindowAdapter = null
                 infoWindowAdapter = InfoWindowAdapter(currentLocation, this@MapsActivity)

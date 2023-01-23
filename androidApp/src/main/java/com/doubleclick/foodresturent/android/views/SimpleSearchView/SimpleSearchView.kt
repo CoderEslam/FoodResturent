@@ -25,8 +25,10 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.IntDef
 import androidx.core.content.ContextCompat
 import androidx.core.widget.ImageViewCompat
+import com.doubleclick.foodresturent.android.Adapter.Block
 import com.doubleclick.foodresturent.android.R
 import com.doubleclick.foodresturent.android.databinding.SearchViewBinding
+import com.doubleclick.foodresturent.android.`interface`.OpenSearchView
 import com.doubleclick.foodresturent.android.views.SimpleSearchView.utils.ContextUtils.getAccentColor
 import com.doubleclick.foodresturent.android.views.SimpleSearchView.utils.ContextUtils.getPrimaryColor
 import com.doubleclick.foodresturent.android.views.SimpleSearchView.utils.ContextUtils.hideKeyboard
@@ -40,7 +42,9 @@ import com.doubleclick.foodresturent.android.views.SimpleSearchView.utils.Simple
 import com.doubleclick.foodresturent.android.views.SimpleSearchView.utils.SimpleAnimationUtils.hideOrFadeOut
 import com.doubleclick.foodresturent.android.views.SimpleSearchView.utils.SimpleAnimationUtils.revealOrFadeIn
 import com.doubleclick.foodresturent.android.views.SimpleSearchView.utils.SimpleAnimationUtils.verticalSlideView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayout
+import kotlinx.android.synthetic.main.fragment_home.view.*
 
 
 class SimpleSearchView @JvmOverloads constructor(
@@ -57,6 +61,7 @@ class SimpleSearchView @JvmOverloads constructor(
      * @return current reveal or fade animations duration
      */
     var animationDuration = SimpleAnimationUtils.ANIMATION_DURATION_DEFAULT
+    lateinit var openSearchView: OpenSearchView
 
     /**
      * @param revealAnimationCenter center of the reveal animation, used to customize the origin of the animation
@@ -447,9 +452,11 @@ class SimpleSearchView @JvmOverloads constructor(
      */
     fun onBackPressed(): Boolean {
         if (isSearchOpen) {
+            openSearchView.isOpenSearchView(isSearchOpen)
             closeSearch()
             return true
         }
+        openSearchView.isOpenSearchView(isSearchOpen)
         return false
     }
 
@@ -647,11 +654,10 @@ class SimpleSearchView @JvmOverloads constructor(
      *
      * @param menuItem MenuItem that opens the search
      */
-    fun setMenuItem(menuItem: MenuItem) {
-        menuItem.setOnMenuItemClickListener {
-            showSearch()
-            true
-        }
+    fun setMenuItem(openSearchView: OpenSearchView) {
+        this.openSearchView = openSearchView;
+        showSearch()
+        openSearchView.isOpenSearchView(isSearchOpen)
     }
 
     /**

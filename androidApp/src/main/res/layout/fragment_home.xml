@@ -27,7 +27,8 @@
                 android:background="#00FFFFFF"
                 android:elevation="10dp"
                 app:type="card"
-                app:voiceSearch="true" />
+                app:voiceSearch="true"
+                tools:visibility="visible" />
 
             <com.doubleclick.foodresturent.android.views.imageslider.ImageSlider
                 android:id="@+id/imageSlider"
@@ -76,4 +77,14 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/fab_margin"
+        android:backgroundTint="@color/red"
+        app:layout_anchor="@id/app_bar"
+        app:layout_anchorGravity="bottom|end"
+        app:srcCompat="@drawable/search" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

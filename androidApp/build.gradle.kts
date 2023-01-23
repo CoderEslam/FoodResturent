@@ -82,6 +82,7 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-scalars:2.9.0")
     implementation("io.reactivex.rxjava2:rxandroid:2.0.1")
 
+
 //    implementation("com.android.support:multidex:2.0.1")
 
 }
